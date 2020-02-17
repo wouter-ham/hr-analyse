@@ -231,7 +231,7 @@ class Automator:
             self.results[i] = 0
 
         for i in range(loops):
-            self.results[GreedyPig(length, self.dummies['players'][:], 2, False).result()] += 1
+            self.results[GreedyPig(length, self.dummies['players'], 2, False).result()] += 1
 
             for a in self.dummies['players']:
                 a.amount = 0
