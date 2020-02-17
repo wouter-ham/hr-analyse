@@ -231,6 +231,9 @@ class Automator:
 
         for i in range(loops):
             self.results[GreedyPig(length, self.dummies['players'][:], 2, False).result()] += 1
+
+            for a in self.dummies['players']:
+                a.amount = 0
             # put the last player at the first place.
             self.dummies['players'] = self.dummies['players'][-1:] + self.dummies['players'][:-1]
 
