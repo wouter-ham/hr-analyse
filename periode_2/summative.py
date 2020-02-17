@@ -1,6 +1,6 @@
 # Wouter van der Ham (0986470)
 # Lars van Houwelingen (0987210)
-
+import math
 import os
 import sys
 from dataclasses import dataclass
@@ -216,9 +216,9 @@ class Automator:
     results: dict = {}
     dummies: dict = {
         'players': [
-            Player(1, 'Lars', 0, lambda x: x <= 12),
-            Player(2, 'Menno', 0, lambda x: x <= 33),
-            Player(3, 'Wouter', 0, lambda x: x <= 15)
+            Player(1, 'Cautious player', 0, lambda x: x <= 12),
+            Player(2, 'Risktaker', 0, lambda x: x <= 33),
+            Player(3, 'Best option', 0, lambda x: x <= 15)
             # if you set the last parameter (called algorithm) to None, you can play against bots
         ]
     }
@@ -238,8 +238,14 @@ class Automator:
             # put the last player at the first place.
             self.dummies['players'] = self.dummies['players'][-1:] + self.dummies['players'][:-1]
 
-        plt.bar(self.results.keys(), self.results.values(), 0.8, 1, tick_label=names)
+        x = self.results.keys()
+        y = self.results.values()
+        low = min(y)
+        high = max(y)
+        plt.ylim([math.ceil(low-2*(high-low)), math.ceil(high+2*(high-low))])
+        plt.legend(names, [str(i / loops * 100) + '%' for i in self.results])
+        plt.bar(x, y, 0.8, 1, tick_label=names, color=['red', 'grey', 'blue'])
         plt.show()
 
 
-Automator(1000)
+Automator(10000)
