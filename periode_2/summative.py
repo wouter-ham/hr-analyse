@@ -240,10 +240,8 @@ class Automator:
 
         x = self.results.keys()
         y = self.results.values()
-        low = min(y)
-        high = max(y)
-        plt.ylim([math.ceil(low-2*(high-low)), math.ceil(high+2*(high-low))])
-        plt.legend(names, [str(i / loops * 100) + '%' for i in self.results])
+        plt.ylim([0, max(y) * 3])
+        plt.legend(names, [(str(i / loops * 100) + '%') for i in y])
         plt.bar(x, y, 0.8, 1, tick_label=names, color=['red', 'grey', 'blue'])
         plt.show()
 
