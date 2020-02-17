@@ -225,6 +225,7 @@ class Automator:
 
     def __init__(self, loops: int = 1):
         length = len(self.dummies['players'])
+        names = [p.name for p in self.dummies['players']]
 
         for i in range(1, length + 1):  # prepare the result array
             self.results[i] = 0
@@ -237,7 +238,7 @@ class Automator:
             # put the last player at the first place.
             self.dummies['players'] = self.dummies['players'][-1:] + self.dummies['players'][:-1]
 
-        plt.bar(self.results.keys(), self.results.values())
+        plt.bar(self.results.keys(), self.results.values(), 0.8, 1, tick_label=names)
         plt.show()
 
 
