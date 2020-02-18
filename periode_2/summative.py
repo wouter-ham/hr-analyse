@@ -235,15 +235,23 @@ class Automator:
 
             for a in self.dummies['players']:
                 a.amount = 0
+
             # put the last player at the first place.
             self.dummies['players'] = self.dummies['players'][-1:] + self.dummies['players'][:-1]
 
         x = self.results.keys()
         y = self.results.values()
         plt.ylim([0, max(y) * 3])
-        plt.legend(names, [(str(i / loops * 100) + '%') for i in y])
         plt.bar(x, y, 0.8, 1, tick_label=names, color=['red', 'grey', 'blue'])
+
+        # test = [[a for a in y if a == i.id][0] for i in self.dummies['players']]
+
+        # print(test)
+
+        labels = [i.name + ' (' + str([a for a in y if a == i.id][0]) + '%)' for i in self.dummies['players']]
+
+        plt.legend(labels=labels, loc='upper left')
         plt.show()
 
 
-Automator(10000)
+Automator(1000)
