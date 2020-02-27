@@ -218,8 +218,13 @@ class Automator:
         'players': [
             Player(1, 'Cautious player', 0, lambda x: x <= 12),
             Player(2, 'Risktaker', 0, lambda x: x <= 33),
-            Player(3, 'Best option', 0, lambda x: x <= 15)
+            Player(3, 'Best option', 0, lambda x: x <= 18)
             # if you set the last parameter (called algorithm) to None, you can play against bots
+        ],
+        'colors': [
+            'red',
+            'grey',
+            'blue'
         ]
     }
 
@@ -241,16 +246,22 @@ class Automator:
 
         x = self.results.keys()
         y = self.results.values()
+
         plt.ylim([0, max(y) * 3])
-        plt.bar(x, y, 0.8, 1, tick_label=names, color=['red', 'grey', 'blue'])
 
-        # test = [[a for a in y if a == i.id][0] for i in self.dummies['players']]
+        players = self.dummies['players']
+        players.sort(key=lambda b: b.id)
+        labels = [i.name + ' (' + str(int([self.results.get(a, 0) for a in x if a == i.id][0] / loops * 100)) + '%)'
+                  for i in players]
 
-        # print(test)
+        colors = {}
+        for label in range(len(labels)):
+            colors[labels[label]] = self.dummies['colors'][label]
 
-        labels = [i.name + ' (' + str([a for a in y if a == i.id][0]) + '%)' for i in self.dummies['players']]
+        handles = [plt.Rectangle((0, 0), 1, 1, color=colors[label]) for label in labels]
 
-        plt.legend(labels=labels, loc='upper left')
+        plt.bar(x, y, 0.8, 1, tick_label=names, color=colors.values())
+        plt.legend(handles, labels, loc='upper left')
         plt.show()
 
 
