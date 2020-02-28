@@ -251,7 +251,7 @@ class Automator:
 
         players = self.dummies['players']
         players.sort(key=lambda b: b.id)
-        labels = [i.name + ' (' + str(int([self.results.get(a, 0) for a in x if a == i.id][0] / loops * 100)) + '%)'
+        labels = [i.name + ' (' + str([self.results.get(a, 0) for a in x if a == i.id][0] / loops * 100) + '%)'
                   for i in players]
 
         colors = {}
