@@ -247,11 +247,12 @@ class Automator:
         x = self.results.keys()
         y = self.results.values()
 
-        plt.ylim([0, max(y) * 3])
+        # plt.ylim([0, max(y) * 3])
+        plt.ylim(0, loops)
 
         players = self.dummies['players']
         players.sort(key=lambda b: b.id)
-        labels = [i.name + ' (' + str([self.results.get(a, 0) for a in x if a == i.id][0] / loops * 100) + '%)'
+        labels = [i.name + ' (' + str(int([self.results.get(a, 0) for a in x if a == i.id][0] / loops * 100)) + '%)'
                   for i in players]
 
         colors = {}
